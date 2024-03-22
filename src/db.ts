@@ -13,7 +13,7 @@ interface CustomDexie extends Dexie {
 }
 
 const createDatabase = (): CustomDexie => {
-    const db = new Dexie('onetab') as CustomDexie;
+    const db = new Dexie('link-vault') as CustomDexie;
     db.version(1).stores({
         links: '++id, url, title, tag, type'
     });

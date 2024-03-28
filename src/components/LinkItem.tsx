@@ -5,14 +5,11 @@ import { Link } from "../db";
 
 interface LinkItemProps {
   link: Link;
-  // allowEdit: boolean;
-  // newTitle: string;
   onEdit: (linkId: string, newTitle: string) => Promise<void>;
   onDelete: (linkId: string) => Promise<void>;
-  // onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const LinkItem = ({link, onEdit, onDelete}: LinkItemProps) => {
+const LinkItem = ({ link, onEdit, onDelete }: LinkItemProps) => {
   const [allowEdit, setAllowEdit] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>("");
 
@@ -24,11 +21,10 @@ const LinkItem = ({link, onEdit, onDelete}: LinkItemProps) => {
       console.error("Error updating link title: ", error);
     }
   };
-  
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.target.value);
   };
-  
 
   return (
     <li
@@ -45,7 +41,10 @@ const LinkItem = ({link, onEdit, onDelete}: LinkItemProps) => {
             value={newTitle}
             onChange={handleChange}
           />
-          <button onClick={() => handleEdit(link.id as string, newTitle)} className="hover:outline outline-offset-4 text-xl ml-2">
+          <button
+            onClick={() => handleEdit(link.id as string, newTitle)}
+            className="hover:outline outline-offset-4 text-xl ml-2"
+          >
             <BiSave className="" />
           </button>
         </>
@@ -60,10 +59,16 @@ const LinkItem = ({link, onEdit, onDelete}: LinkItemProps) => {
           >
             {link.title}
           </a>
-          <button onClick={() => setAllowEdit(true)} className="ml-2 hover:outline outline-offset-4">
+          <button
+            onClick={() => setAllowEdit(true)}
+            className="ml-2 hover:outline outline-offset-4"
+          >
             <TbEdit className="text-xl" />
           </button>
-          <button onClick={() => onDelete(link.id as string)} className="text-xl text-red-500 ml-2 hover:outline outline-offset-4">
+          <button
+            onClick={() => onDelete(link.id as string)}
+            className="text-xl text-red-500 ml-2 hover:outline outline-offset-4"
+          >
             <TbTrash />
           </button>
         </>

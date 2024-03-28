@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "version": "1.0.0",
-  "name": "Link Vault",
+  "version": "1.0.1",
+  "name": "My Link Vault",
   "icons": {
     "128": "128.png"
   },

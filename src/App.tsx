@@ -2,6 +2,8 @@ import { FormEvent, useRef } from "react";
 import LinkList from "./components/LinkList";
 import db from "./db";
 import Footer from "./components/Footer";
+import SubmitForm from "./components/SubmitForm";
+
 
 type Link = {
   url: string;
@@ -35,8 +37,6 @@ function App() {
       category: formData.get("category"),
     } as Link;
     
-
-
     try {
       const existingLink = await db.links.where('url').equals(linkData.url).toArray();
 
@@ -60,7 +60,7 @@ function App() {
   return (
     <div className="flex flex-col p-4 pb-0 bg-primary text-white h-[600px] w-[400px] overflow-y-auto">
       <h1 className="text-xl text-center mb-2">Link Vault</h1>
-      <div className="">
+      {/* <div className="">
         <form onSubmit={handleSubmit} ref={formRef} className="flex flex-col">
           <div className="flex items-center gap-x-2">
             <div className="flex flex-col w-full">
@@ -98,7 +98,8 @@ function App() {
             Add Link
           </button>
         </form>
-      </div>
+      </div> */}
+      <SubmitForm handleSubmit={handleSubmit} formRef={formRef}/>
       <LinkList />
       <Footer />
     </div>

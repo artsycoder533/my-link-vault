@@ -1,11 +1,8 @@
 import { HiHeart } from "react-icons/hi";
+import { getDate } from "../util/helpers";
 
 const Footer = () => {
-  const getDate = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    return year;
-  }
+ 
   return (
     <footer className="p-1 border-secondary border-t-2">
       <p className="flex items-center text-sm justify-center">
@@ -20,7 +17,7 @@ const Footer = () => {
           {" "}
           Natasha Johnson
         </a>
-        <span className="ml-1">&copy; {getDate()}</span>
+        <span className="ml-1">{getDate()}</span>
       </p>
     </footer>
   );

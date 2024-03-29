@@ -3,13 +3,13 @@ import { BiSave } from "react-icons/bi";
 import { TbTrash, TbEdit } from "react-icons/tb";
 import { Link } from "../db";
 
-interface LinkItemProps {
+interface ListItemProps {
   link: Link;
   onEdit: (linkId: string, newTitle: string) => Promise<void>;
   onDelete: (linkId: string) => Promise<void>;
 }
 
-const LinkItem = ({ link, onEdit, onDelete }: LinkItemProps) => {
+const ListItem = ({ link, onEdit, onDelete }: ListItemProps) => {
   const [allowEdit, setAllowEdit] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>("");
 
@@ -37,6 +37,7 @@ const LinkItem = ({ link, onEdit, onDelete }: LinkItemProps) => {
             type="text"
             name="newTitle"
             id="newTitle"
+            data-testid="edit-input"
             className="text-ellipsis flex-1 border p-1 text-black"
             value={newTitle}
             onChange={handleChange}
@@ -62,12 +63,14 @@ const LinkItem = ({ link, onEdit, onDelete }: LinkItemProps) => {
           <button
             onClick={() => setAllowEdit(true)}
             className="ml-2 hover:outline outline-offset-4"
+            data-testid="edit-button"
           >
             <TbEdit className="text-xl" />
           </button>
           <button
             onClick={() => onDelete(link.id as string)}
             className="text-xl text-red-500 ml-2 hover:outline outline-offset-4"
+            data-testid="delete-button"
           >
             <TbTrash />
           </button>
@@ -77,4 +80,4 @@ const LinkItem = ({ link, onEdit, onDelete }: LinkItemProps) => {
   );
 };
 
-export default LinkItem;
+export default ListItem;

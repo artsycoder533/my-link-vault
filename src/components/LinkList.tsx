@@ -4,7 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { Link } from "../db";
 import Export from "./Export";
 import FilterForm from "./FilterForm";
-import LinkItem from "./LinkItem";
+import ListItem from "./ListItem";
 
 const LinkList = () => {
   const [selectedTag, setSelectedTag] = useState<string>('');
@@ -96,7 +96,7 @@ const LinkList = () => {
       <ul className="flex flex-col my-3 h-72 overflow-y-auto  gap-y-1 mb-3 ">
         {filteredList?.map((link) => {
           return (
-            <LinkItem key={link.id} link={link} onEdit={editLink} onDelete={deleteLink} />
+            <ListItem key={link.id} link={link} onEdit={editLink} onDelete={deleteLink} />
           );
         })}
       </ul>

@@ -33,6 +33,7 @@ const ListItem = ({ link, onEdit, onDelete }: ListItemProps) => {
     >
       {allowEdit ? (
         <>
+        <label htmlFor="newTitle" className="sr-only">Edit title:</label>
           <input
             type="text"
             name="newTitle"
@@ -45,6 +46,8 @@ const ListItem = ({ link, onEdit, onDelete }: ListItemProps) => {
           <button
             onClick={() => handleEdit(link.id as string, newTitle)}
             className="hover:outline outline-offset-4 text-xl ml-2"
+            data-testid="save-button"
+            aria-label="save link"
           >
             <BiSave className="" />
           </button>
@@ -64,6 +67,7 @@ const ListItem = ({ link, onEdit, onDelete }: ListItemProps) => {
             onClick={() => setAllowEdit(true)}
             className="ml-2 hover:outline outline-offset-4"
             data-testid="edit-button"
+            aria-label="edit link title"
           >
             <TbEdit className="text-xl" />
           </button>
@@ -71,6 +75,7 @@ const ListItem = ({ link, onEdit, onDelete }: ListItemProps) => {
             onClick={() => onDelete(link.id as string)}
             className="text-xl text-red-500 ml-2 hover:outline outline-offset-4"
             data-testid="delete-button"
+            aria-label="delete link"
           >
             <TbTrash />
           </button>

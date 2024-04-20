@@ -22,13 +22,13 @@ const SubmitForm = ({ handleSubmit, formRef }: SubmitFormProps) => {
             />
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="type">Select Category:</label>
+            <label htmlFor="category">Select Category:</label>
             <select
               name="category"
               id="category"
               className="border py-[10px] text-black w-full"
             >
-              <option value="" disabled selected hidden>
+              <option value="" disabled hidden>
                 Select Category
               </option>
               <option value="website">Website</option>

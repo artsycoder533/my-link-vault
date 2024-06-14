@@ -1,7 +1,7 @@
 import Dexie, {Table} from "dexie";
 
 export interface Link {
-    id?: string;
+    id?: number;
     url: string;
     title: string;
     tag: string;

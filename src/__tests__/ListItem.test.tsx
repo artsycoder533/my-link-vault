@@ -11,7 +11,7 @@ describe('ListItem', () => {
 
         //create a link object
         const link = {
-            id: "1",
+            id: 1,
             url: "http://www.example.com",
             title: 'my title',
             tag: 'react',
@@ -42,7 +42,7 @@ describe('ListItem', () => {
         const mockOnDelete = vi.fn();
 
         const link = {
-            id: "1",
+            id: 1,
             url: "http://www.example.com",
             title: 'my title',
             tag: 'react',
@@ -64,7 +64,7 @@ describe('ListItem', () => {
         const mockOnDelete = vi.fn();
 
         const link = {
-            id: "1",
+            id: 1,
             url: "http://www.example.com",
             title: 'my title',
             tag: 'react',
@@ -89,7 +89,7 @@ describe('ListItem', () => {
         const mockOnDelete = vi.fn();
 
         const link = {
-            id: "1",
+            id: 1,
             url: "http://www.example.com",
             title: 'my title',
             tag: 'react',
@@ -119,7 +119,7 @@ describe('ListItem', () => {
         const mockOnDelete = vi.fn();
 
         const link = {
-            id: "1",
+            id: 1,
             url: "http://www.example.com",
             title: 'my title',
             tag: 'react',
@@ -139,7 +139,7 @@ describe('ListItem', () => {
         const mockOnDelete = vi.fn();
 
         const link = {
-            id: "1",
+            id: 1,
             url: "http://www.example.com",
             title: 'my title',
             tag: 'react',

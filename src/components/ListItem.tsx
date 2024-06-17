@@ -5,15 +5,15 @@ import { Link } from "../db";
 
 interface ListItemProps {
   link: Link;
-  onEdit: (linkId: string, newTitle: string) => Promise<void>;
-  onDelete: (linkId: string) => Promise<void>;
+  onEdit: (linkId: number, newTitle: string) => Promise<void>;
+  onDelete: (linkId: number) => Promise<void>;
 }
 
 const ListItem = ({ link, onEdit, onDelete }: ListItemProps) => {
   const [allowEdit, setAllowEdit] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>("");
 
-  const handleEdit = async (linkId: string, newTitle: string) => {
+  const handleEdit = async (linkId: number, newTitle: string) => {
     try {
       await onEdit(linkId, newTitle);
       setAllowEdit(false);
@@ -33,7 +33,9 @@ const ListItem = ({ link, onEdit, onDelete }: ListItemProps) => {
     >
       {allowEdit ? (
         <>
-        <label htmlFor="newTitle" className="sr-only">Edit title:</label>
+          <label htmlFor="newTitle" className="sr-only">
+            Edit title:
+          </label>
           <input
             type="text"
             name="newTitle"
@@ -44,7 +46,7 @@ const ListItem = ({ link, onEdit, onDelete }: ListItemProps) => {
             onChange={handleChange}
           />
           <button
-            onClick={() => handleEdit(link.id as string, newTitle)}
+            onClick={() => handleEdit(link?.id as number, newTitle)}
             className="hover:outline outline-offset-4 text-xl ml-2"
             data-testid="save-button"
             aria-label="save link"
@@ -72,7 +74,7 @@ const ListItem = ({ link, onEdit, onDelete }: ListItemProps) => {
             <TbEdit className="text-xl" />
           </button>
           <button
-            onClick={() => onDelete(link.id as string)}
+            onClick={() => onDelete(link?.id as number)}
             className="text-xl text-red-500 ml-2 hover:outline outline-offset-4"
             data-testid="delete-button"
             aria-label="delete link"

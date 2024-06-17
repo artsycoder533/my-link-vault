@@ -9,7 +9,7 @@ export interface Link {
 }
 
 interface CustomDexie extends Dexie {
-    links: Table<Link>;
+    links: Table<Link, number>;
 }
 
 const createDatabase = (): CustomDexie => {

@@ -1,4 +1,6 @@
+// setupTests.ts
 import '@testing-library/jest-dom/vitest';
+import 'fake-indexeddb/auto';
 
 import { expect, afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';

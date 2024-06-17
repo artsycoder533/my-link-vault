@@ -15,9 +15,10 @@ const FilterForm = ({ tags, categories, onChange, onReset }:FilterFormProps) => 
         name="tags"
         id="tags"
         onChange={onChange}
+        defaultValue={""}
         className="p-1 border text-black w-full"
       >
-        <option value="" disabled selected hidden>
+        <option value="" disabled hidden>
           Select Tag
         </option>
         {tags?.map((tag) => (
@@ -32,9 +33,10 @@ const FilterForm = ({ tags, categories, onChange, onReset }:FilterFormProps) => 
         name="category"
         id="category"
         onChange={onChange}
+        defaultValue={""}
         className="p-1 border text-black w-full"
       >
-        <option value="" disabled selected hidden>
+        <option value="" disabled  hidden>
           Select Category
         </option>
         {categories?.map((category) => (

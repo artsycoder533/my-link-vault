@@ -1,18 +1,24 @@
-import { test, expect, describe } from "vitest";
-import {render, screen} from '@testing-library/react';
+import { test, expect, describe, vi } from "vitest";
+import { render, screen } from '@testing-library/react';
 import Footer from "../components/Footer";
-import { getDate } from "../util/helpers";
+import { getDate } from "../util/helpers"; 
 
 describe('Footer', () => {
-    test('should render Footer with correct content', () => {     
+    test('should render Footer with correct content', () => {
+        const mockYear = 2024;
+        // Mock the getDate function
+        vi.spyOn({ getDate }, 'getDate').mockReturnValue(mockYear);
+        
         render(<Footer />);
 
         expect(screen.getByText(/made with/i)).toBeInTheDocument();
         expect(screen.getByRole('link', {
             name: /natasha johnson/i
-          })).toBeInTheDocument();
-        const currentYear = getDate();
-        expect(screen.getByText(currentYear)).toBeInTheDocument();
-        expect(screen.getByText('2024')).toBeInTheDocument(); // Use the mocked value directly
-    })
-})
+        })).toBeInTheDocument();
+        
+        expect(screen.getByText(mockYear)).toBeInTheDocument();
+
+        // Restore the original implementation
+        vi.restoreAllMocks();
+    });
+});

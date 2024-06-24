@@ -1,27 +1,45 @@
-import { test, expect, describe, vi } from "vitest";
-import {render, screen } from '@testing-library/react';
+import { test, expect, describe, vi, beforeEach } from "vitest";
+import { render, screen } from '@testing-library/react';
 import ListItem from "../components/ListItem";
-import userEvent from '@testing-library/user-event'
+import userEvent, { UserEvent } from '@testing-library/user-event';
+
+// Define the type for the link object
+interface Link {
+    id: number;
+    url: string;
+    title: string;
+    tag: string;
+    category: string;
+}
+
+
+// Define the types for the onEdit and onDelete functions
+type OnEdit = (linkId: number, newTitle: string) => Promise<void>;
+type OnDelete = (linkId: number) => Promise<void>;
 
 describe('ListItem', () => {
-    test('should render ListItem with correct content', () => {
-        //mock edit and delete functions
-        const mockOnEdit = vi.fn();
-        const mockOnDelete = vi.fn();
+    let mockOnEdit: OnEdit;
+    let mockOnDelete: OnDelete;
+    let link: Link;
+    let user: UserEvent;
 
-        //create a link object
-        const link = {
+    beforeEach(() => {
+        mockOnEdit = vi.fn();
+        mockOnDelete = vi.fn();
+        link = {
             id: 1,
             url: "http://www.example.com",
             title: 'my title',
             tag: 'react',
             category: 'website'
         };
+        user = userEvent.setup();
 
-        // check initial state of component
-        render(<ListItem link={link} onEdit={mockOnEdit} onDelete={mockOnDelete}/>);
+        render(<ListItem link={link} onEdit={mockOnEdit} onDelete={mockOnDelete} />);
+    });
 
-        const titleLink = screen.getByRole('link', {name: 'my title'});
+    test('should render ListItem with correct content', () => {
+        const titleLink = screen.getByRole('link', { name: 'my title' });
         expect(titleLink).toBeInTheDocument();
         expect(titleLink).toHaveAccessibleName();
 
@@ -37,119 +55,48 @@ describe('ListItem', () => {
         expect(deleteButton).toHaveAccessibleName();
     });
 
-    test('clicking edit button renders input box', async() => {
-        const mockOnEdit = vi.fn();
-        const mockOnDelete = vi.fn();
-
-        const link = {
-            id: 1,
-            url: "http://www.example.com",
-            title: 'my title',
-            tag: 'react',
-            category: 'website'
-        };
-        const user = userEvent.setup();
-
-        render(<ListItem link={link} onEdit={mockOnEdit} onDelete={mockOnDelete}/>);
-
+    test('clicking edit button renders input box', async () => {
         const editButton = screen.getByTestId('edit-button');
         await user.click(editButton);
-        const editInput = screen.queryByTestId('edit-input');
+        const editInput = screen.getByTestId('edit-input');
         expect(editInput).toBeInTheDocument();
         expect(editInput).toHaveAccessibleName();
     });
 
-    test('typing in the input box updates the rendered text', async() => {
-        const mockOnEdit = vi.fn();
-        const mockOnDelete = vi.fn();
-
-        const link = {
-            id: 1,
-            url: "http://www.example.com",
-            title: 'my title',
-            tag: 'react',
-            category: 'website'
-        };
-        const user = userEvent.setup();
-
-        render(<ListItem link={link} onEdit={mockOnEdit} onDelete={mockOnDelete}/>);
-
+    test('typing in the input box updates the rendered text', async () => {
         const editButton = screen.getByTestId('edit-button');
         await user.click(editButton);
 
         const editInput = screen.getByRole('textbox');
-       
         await user.type(editInput, 'new title');
         expect(editInput).toHaveValue('new title');
     });
 
-    test('clicking the save button updates the title of the link', async() => {
-        const user = userEvent.setup();
-        const mockOnEdit = vi.fn();
-        const mockOnDelete = vi.fn();
-
-        const link = {
-            id: 1,
-            url: "http://www.example.com",
-            title: 'my title',
-            tag: 'react',
-            category: 'website'
-        };
-
-        render(<ListItem link={link} onEdit={mockOnEdit} onDelete={mockOnDelete}/>);
-
+    test('clicking the save button updates the title of the link', async () => {
         const editButton = screen.getByTestId('edit-button');
         await user.click(editButton);
 
         const editInput = screen.getByRole('textbox');
-       
         await user.type(editInput, 'new title');
-        const saveButton = screen.getByTestId('save-button');
         
+        const saveButton = screen.getByTestId('save-button');
         await user.click(saveButton);
-        screen.debug();
+        
         expect(mockOnEdit).toHaveBeenCalledWith(link.id, 'new title');
         expect(mockOnEdit).toHaveBeenCalledTimes(1);
         expect(await screen.findByTestId('edit-button')).toBeInTheDocument();
         expect(screen.queryByTestId('save-button')).not.toBeInTheDocument();
     });
 
-    test('clicking on the link title show take user to the url of the link', async () => {
-        const mockOnEdit = vi.fn();
-        const mockOnDelete = vi.fn();
-
-        const link = {
-            id: 1,
-            url: "http://www.example.com",
-            title: 'my title',
-            tag: 'react',
-            category: 'website'
-        };
-
-        render(<ListItem link={link} onEdit={mockOnEdit} onDelete={mockOnDelete}/>);
-
-
-        const titleLink = screen.getByRole('link', {name: link.title});
-       expect(titleLink).toHaveAttribute('href', "http://www.example.com")
+    test('clicking on the link title should take user to the url of the link', () => {
+        const titleLink = screen.getByRole('link', { name: link.title });
+        expect(titleLink).toHaveAttribute('href', "http://www.example.com");
     });
 
-    test('clicking the delete button calls correct function with parameters', async() => {
-        const user = userEvent.setup();
-        const mockOnEdit = vi.fn();
-        const mockOnDelete = vi.fn();
-
-        const link = {
-            id: 1,
-            url: "http://www.example.com",
-            title: 'my title',
-            tag: 'react',
-            category: 'website'
-        };
-
-        render(<ListItem link={link} onEdit={mockOnEdit} onDelete={mockOnDelete}/>);
+    test('clicking the delete button calls correct function with parameters', async () => {
         const deleteButton = screen.getByTestId('delete-button');
         await user.click(deleteButton);
         expect(mockOnDelete).toHaveBeenCalledWith(link.id);
         expect(mockOnDelete).toHaveBeenCalledTimes(1);
-    })
+    });
 });

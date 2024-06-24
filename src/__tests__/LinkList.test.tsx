@@ -4,41 +4,45 @@ import LinkList from "../components/LinkList";
 import mockDb from "../__mocks__/db";
 import userEvent from "@testing-library/user-event";
 
+const sampleLinks = [
+  {
+    id: 1,
+    url: "https://example.com",
+    title: "Example 1",
+    tag: "next",
+    category: "website",
+  },
+  {
+    id: 2,
+    url: "https://example2.com",
+    title: "Example 2",
+    tag: "react",
+    category: "documentation",
+  },
+];
+
+const renderWithMockDb = async (links = sampleLinks) => {
+  await mockDb.links.bulkAdd(links);
+  render(<LinkList dbInstance={mockDb} />);
+};
+
 describe("LinkList", () => {
   beforeEach(async () => {
     // clear the mock db before each test
     await mockDb.links.clear();
   });
 
-  test("should render your list is empty by default", () => {
-    render(<LinkList dbInstance={mockDb} />);
+  test("should render your list is empty by default", async() => {
+    await renderWithMockDb();
 
     const showFiltersButton = screen.getByText(/empty/i);
     expect(showFiltersButton).toBeInTheDocument();
   });
 
   test("should render filter form if list is not empty", async () => {
-    // Add mock data to the database
-    await mockDb.links.bulkAdd([
-      {
-        id: 1,
-        url: "https://example.com",
-        title: "Example",
-        tag: "example",
-        category: "youtube",
-      },
-      {
-        id: 2,
-        url: "https://example2.com",
-        title: "Example 2",
-        tag: "example2",
-        category: "website",
-      },
-    ]);
-
-    render(<LinkList dbInstance={mockDb} />);
+    await renderWithMockDb();
     await waitFor(() => {
-      const link1 = screen.getByText("Example");
+      const link1 = screen.getByText("Example 1");
       const link2 = screen.getByText("Example 2");
       expect(link1).toBeInTheDocument();
       expect(link2).toBeInTheDocument();
@@ -80,28 +84,10 @@ describe("LinkList", () => {
   });
 
   test("should toggle show filters button to hide filters when pressed", async () => {
-    // Add mock data to the database
-    await mockDb.links.bulkAdd([
-      {
-        id: 1,
-        url: "https://example.com",
-        title: "Example",
-        tag: "example",
-        category: "test",
-      },
-      {
-        id: 2,
-        url: "https://example2.com",
-        title: "Example 2",
-        tag: "example2",
-        category: "test",
-      },
-    ]);
+    await renderWithMockDb();
 
-    render(<LinkList dbInstance={mockDb} />);
     await waitFor(() => {
-      // Assertions for rendered content
-      screen.getByText("Example");
+      screen.getByText("Example 1");
       screen.getByText("Example 2");
     });
 
@@ -116,25 +102,8 @@ describe("LinkList", () => {
   });
 
   test("should filter links by tag", async () => {
-    // Add mock data to the database
-    await mockDb.links.bulkAdd([
-      {
-        id: 1,
-        url: "https://example.com",
-        title: "Example 1",
-        tag: "next",
-        category: "website",
-      },
-      {
-        id: 2,
-        url: "https://example2.com",
-        title: "Example 2",
-        tag: "react",
-        category: "documentation",
-      },
-    ]);
+    await renderWithMockDb();
 
-    render(<LinkList dbInstance={mockDb} />);
     await waitFor(() => {
       screen.getByText("Example 1");
       screen.getByText("Example 2");
@@ -152,25 +121,8 @@ describe("LinkList", () => {
   });
 
   test("should filter links by category", async () => {
-    // Add mock data to the database
-    await mockDb.links.bulkAdd([
-      {
-        id: 1,
-        url: "https://example.com",
-        title: "Example 1",
-        tag: "next",
-        category: "website",
-      },
-      {
-        id: 2,
-        url: "https://example2.com",
-        title: "Example 2",
-        tag: "react",
-        category: "documentation",
-      },
-    ]);
+    await renderWithMockDb();
 
-    render(<LinkList dbInstance={mockDb} />);
     await waitFor(() => {
       screen.getByText("Example 1");
       screen.getByText("Example 2");
@@ -188,25 +140,8 @@ describe("LinkList", () => {
   });
 
   test("should remove filters when remove filters button pressed", async () => {
-    // Add mock data to the database
-    await mockDb.links.bulkAdd([
-      {
-        id: 1,
-        url: "https://example.com",
-        title: "Example 1",
-        tag: "next",
-        category: "website",
-      },
-      {
-        id: 2,
-        url: "https://example2.com",
-        title: "Example 2",
-        tag: "react",
-        category: "documentation",
-      },
-    ]);
+    await renderWithMockDb();
 
-    render(<LinkList dbInstance={mockDb} />);
     await waitFor(() => {
       screen.getByText("Example 1");
       screen.getByText("Example 2");
@@ -236,25 +171,8 @@ describe("LinkList", () => {
   });
 
   test("should display message if no links match the filters", async () => {
-    // Add mock data to the database
-    await mockDb.links.bulkAdd([
-      {
-        id: 1,
-        url: "https://example.com",
-        title: "Example 1",
-        tag: "next",
-        category: "website",
-      },
-      {
-        id: 2,
-        url: "https://example2.com",
-        title: "Example 2",
-        tag: "react",
-        category: "documentation",
-      },
-    ]);
+    await renderWithMockDb();
 
-    render(<LinkList dbInstance={mockDb} />);
     await waitFor(() => {
       screen.getByText("Example 1");
       screen.getByText("Example 2");
@@ -277,25 +195,8 @@ describe("LinkList", () => {
   });
 
   test("should update link name when edited", async () => {
-    // Add mock data to the database
-    await mockDb.links.bulkAdd([
-      {
-        id: 1,
-        url: "https://example.com",
-        title: "Example 1",
-        tag: "next",
-        category: "website",
-      },
-      {
-        id: 2,
-        url: "https://example2.com",
-        title: "Example 2",
-        tag: "react",
-        category: "documentation",
-      },
-    ]);
+    await renderWithMockDb();
 
-    render(<LinkList dbInstance={mockDb} />);
     await waitFor(() => {
       screen.getByText("Example 1");
       screen.getByText("Example 2");
@@ -334,24 +235,8 @@ describe("LinkList", () => {
   });
 
   test("should remove link from list when delete button is pressed", async () => {
-    await mockDb.links.bulkAdd([
-      {
-        id: 1,
-        url: "https://example.com",
-        title: "Example 1",
-        tag: "next",
-        category: "website",
-      },
-      {
-        id: 2,
-        url: "https://example2.com",
-        title: "Example 2",
-        tag: "react",
-        category: "documentation",
-      },
-    ]);
+    await renderWithMockDb();
 
-    render(<LinkList dbInstance={mockDb} />);
     await waitFor(() => {
       screen.getByText("Example 1");
       screen.getByText("Example 2");
@@ -376,30 +261,14 @@ describe("LinkList", () => {
   });
 
   test("should navigate the user to the links url in a new tab when clicked", async () => {
-    await mockDb.links.bulkAdd([
-      {
-        id: 1,
-        url: "https://example.com",
-        title: "Example 1",
-        tag: "next",
-        category: "website",
-      },
-      {
-        id: 2,
-        url: "https://example2.com",
-        title: "Example 2",
-        tag: "react",
-        category: "documentation",
-      },
-    ]);
-
     // Mock window.open
     const mockWindowOpen = vi.fn();
     Object.defineProperty(window, "open", {
       value: mockWindowOpen,
     });
 
-    render(<LinkList dbInstance={mockDb} />);
+    await renderWithMockDb();
+
     await waitFor(() => {
       screen.getByText("Example 1");
       screen.getByText("Example 2");

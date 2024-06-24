@@ -3,15 +3,15 @@ import { Link } from "../db";
 import db from "../db";
 
 interface ExportProps {
-  filteredList: Link[];
+  list: Link[];
 }
 
-const Export = ({ filteredList }: ExportProps) => {
+const Export = ({ list }: ExportProps) => {
   const exportDataToCSV = () => {
-    if (filteredList.length === 0) return;
+    if (list.length === 0) return;
 
     //convert data to json
-    const jsonData = JSON.stringify(filteredList, null, 2);
+    const jsonData = JSON.stringify(list, null, 2);
 
     //create blob
     const blob = new Blob([jsonData], { type: "application/json" });
@@ -84,7 +84,7 @@ const Export = ({ filteredList }: ExportProps) => {
           />
         </form>
       </details>
-      <details>
+      {list?.length > 0 ? <details>
         <summary>Need to backup your links?</summary>
         <div className="flex items-center justify-between mt-4 px-2">
           <p className="text-sm">This will save your data to a json file.</p>
@@ -95,7 +95,7 @@ const Export = ({ filteredList }: ExportProps) => {
             Export Links
           </button>
         </div>
-      </details>
+      </details> : null}
     </div>
   );
 };

@@ -92,14 +92,14 @@ const LinkList = ({dbInstance}: LinkListProps) => {
             onReset={resetFilters}
           />
           <p className="my-4 text-center">No links match your filters...</p>
-          <Export filteredList={filteredList} />
+          <Export list={filteredList} />
         </div>
       );
     } else {
       return (
         <div className="flex flex-1 flex-col">
           <p className="my-4 text-center">Your list is empty...</p>
-          <Export filteredList={filteredList} />
+          <Export list={filteredList} />
         </div>
       );
     }
@@ -107,7 +107,7 @@ const LinkList = ({dbInstance}: LinkListProps) => {
 
 
   return (
-    <div className="mt-4 flex flex-col flex-1 border">
+    <div className="mt-4 flex flex-col flex-1">
       <div className="flex gap-3">
         <button onClick={() => setShowFilters(!showFilters)}>
           {showFilters ? "Hide Filters -" : "Show Filters +"}
@@ -137,7 +137,7 @@ const LinkList = ({dbInstance}: LinkListProps) => {
           );
         })}
       </ul>
-      <Export filteredList={filteredList} />
+      <Export list={links} />
     </div>
   );
 };

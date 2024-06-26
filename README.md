@@ -4,7 +4,8 @@
 Link Vault is a Chrome extension that enables users to create a list of saved links, stored in IndexedDB. Users can categorize each link by tag and category, with the webpage's title and URL automatically fetched as link data. The link list can be filtered by tag and category. When a user clicks on a link in their list, they are navigated to the link's URL in a new page.
 
 ## Screenshot
-![Screenshot of My Link Vault](/screenshot.png)
+<img width="399" alt="link vault sreenshot" src="https://github.com/artsycoder533/my-link-vault/assets/83678228/6839e78d-ca28-4d92-8eae-26b9bd0deabd">
+
 
 ## Links
 [My Link Vault - Chrome Web Store](https://chromewebstore.google.com/detail/my-link-vault/cgnjhdifiiiaepjipolnodmeccccoekk?utm_source=ext_app_menu)

@@ -10,13 +10,13 @@ interface FilterFormProps {
 const FilterForm = ({ tags, categories, onChange, onReset }:FilterFormProps) => {
   return (
     <form className="flex justify-between">
-      <label htmlFor="tags">Select Tag:</label>
+      <label htmlFor="tags" className="sr-only">Select Tag:</label>
       <select
         name="tags"
         id="tags"
         onChange={onChange}
         defaultValue={""}
-        className="p-1 border text-black w-full"
+        className="p-1 border text-black w-fit"
       >
         <option value="" disabled hidden>
           Select Tag
@@ -28,7 +28,7 @@ const FilterForm = ({ tags, categories, onChange, onReset }:FilterFormProps) => 
         ))}
       </select>
 
-      <label htmlFor="category">Select Category:</label>
+      <label htmlFor="category" className="sr-only">Select Category:</label>
       <select
         name="category"
         id="category"

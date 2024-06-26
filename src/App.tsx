@@ -25,13 +25,13 @@ function App() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = await getUrlAndTitle();
-    // const url = "http://www.example.com";
+    // const data = await getUrlAndTitle();
+    const url = "http://www.example.com";
     const linkData = {
-      url: data.url,
-      // url: url,
-      // title: "Title",
-      title: data.title,
+      // url: data.url,
+      url: url,
+      title: "Title",
+      // title: data.title,
       tag: formData.get("tag"),
       category: formData.get("category"),
     } as Link;
@@ -60,7 +60,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col p-4 pb-0 bg-primary text-white h-[600px] w-[400px] overflow-y-auto">
+    <div className="flex flex-col p-4 pb-0 bg-primary text-white h-[700px] w-[450px] overflow-y-auto">
       <h1 className="text-xl text-center mb-2">Link Vault</h1>
       <SubmitForm handleSubmit={handleSubmit} formRef={formRef} />
       <LinkList dbInstance={db}/>

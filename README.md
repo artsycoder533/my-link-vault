@@ -1,31 +1,20 @@
-# React + TypeScript + Vite
+# My Link Vault
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+Link Vault is a Chrome extension that enables users to create a list of saved links, stored in IndexedDB. Users can categorize each link by tag and category, with the webpage's title and URL automatically fetched as link data. The link list can be filtered by tag and category. When a user clicks on a link in their list, they are navigated to the link's URL in a new page.
 
-Currently, two official plugins are available:
+## Screenshot
+![Screenshot of My Link Vault](/screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Links
+[My Link Vault - Chrome Web Store](https://chromewebstore.google.com/detail/my-link-vault/cgnjhdifiiiaepjipolnodmeccccoekk?utm_source=ext_app_menu)
+[My Link Vault - Marketing Site](https://my-link-vault.vercel.app/)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-# one-tab
+## Built With
+- React
+- TypeScript
+- Formspree
+- Tailwind
+- IndexedDB
+- Vitest
+- React Testing Library

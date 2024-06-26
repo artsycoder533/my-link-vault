@@ -25,13 +25,13 @@ function App() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    // const data = await getUrlAndTitle();
-    const url = "http://www.example.com";
+    const data = await getUrlAndTitle();
+    // const url = "http://www.example.com";
     const linkData = {
-      // url: data.url,
-      url: url,
-      title: "Title",
-      // title: data.title,
+      url: data.url,
+      // url: url,
+      // title: "Title",
+      title: data.title,
       tag: formData.get("tag"),
       category: formData.get("category"),
     } as Link;

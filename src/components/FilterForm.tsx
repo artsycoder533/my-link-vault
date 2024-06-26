@@ -16,7 +16,7 @@ const FilterForm = ({ tags, categories, onChange, onReset }:FilterFormProps) => 
         id="tags"
         onChange={onChange}
         defaultValue={""}
-        className="p-1 border text-black w-fit"
+        className="p-1 border text-black text-sm"
       >
         <option value="" disabled hidden>
           Select Tag
@@ -34,7 +34,7 @@ const FilterForm = ({ tags, categories, onChange, onReset }:FilterFormProps) => 
         id="category"
         onChange={onChange}
         defaultValue={""}
-        className="p-1 border text-black w-full"
+        className="p-1 border text-black w-full text-sm"
       >
         <option value="" disabled  hidden>
           Select Category
@@ -45,8 +45,8 @@ const FilterForm = ({ tags, categories, onChange, onReset }:FilterFormProps) => 
           </option>
         ))}
       </select>
-      <button onClick={onReset} className="p-2 bg-secondary w-full">
-        Remove Filters
+      <button onClick={onReset} className="p-2 bg-secondary">
+        Reset
       </button>
     </form>
   );

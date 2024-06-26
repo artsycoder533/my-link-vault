@@ -109,7 +109,7 @@ const LinkList = ({dbInstance}: LinkListProps) => {
   return (
     <div className="mt-4 flex flex-col flex-1">
       <div className="flex gap-3">
-        <button onClick={() => setShowFilters(!showFilters)}>
+        <button onClick={() => setShowFilters(!showFilters)} className="bg-secondary px-4 py-1">
           {showFilters ? "Hide Filters -" : "Show Filters +"}
         </button>
       </div>

@@ -28,7 +28,7 @@ describe("SubmitForm", () => {
     expect(selectInput).toBeInTheDocument();
     expect(selectInput).toHaveAccessibleName();
 
-    const submitButton = screen.getByRole("button", { name: /add link/i });
+    const submitButton = screen.getByRole("button", { name: /add/i });
     expect(submitButton).toBeInTheDocument();
     expect(submitButton).toHaveAccessibleName();
   });
@@ -38,7 +38,7 @@ describe("SubmitForm", () => {
 
     const tagInput = screen.getByRole("textbox");
     const selectInput = screen.getByRole("combobox");
-    const submitButton = screen.getByRole("button", { name: /add link/i });
+    const submitButton = screen.getByRole("button", { name: /add/i });
     await user.type(tagInput, "new tag");
     await user.selectOptions(selectInput, "website");
     await user.click(submitButton);
@@ -54,7 +54,7 @@ describe("SubmitForm", () => {
   test('should not submit form with invalid input', async() => {
     const { user } = setup();
   
-    const submitButton = screen.getByRole("button", { name: /add link/i });
+    const submitButton = screen.getByRole("button", { name: /add/i });
     await user.click(submitButton);
   
     await waitFor(() => {

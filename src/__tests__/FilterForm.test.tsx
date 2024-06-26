@@ -24,7 +24,7 @@ describe("FilterForm", () => {
 
     const selectTag = screen.getByLabelText(/select tag/i);
     const selectCategory = screen.getByLabelText(/select category/i);
-    const removeFilterButton = screen.getByRole('button', { name: /remove filters/i });
+    const removeFilterButton = screen.getByRole('button', { name: /reset/i });
 
     expect(selectTag).toBeInTheDocument();
     expect(selectCategory).toBeInTheDocument();
@@ -49,7 +49,7 @@ describe("FilterForm", () => {
 
   test('should call reset function when button pressed', async () => {
     const { user } = setup();
-    const removeFilterButton = screen.getByRole('button', { name: /remove filters/i });
+    const removeFilterButton = screen.getByRole('button', { name: /reset/i });
 
     await user.click(removeFilterButton);
 

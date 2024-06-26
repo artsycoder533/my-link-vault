@@ -161,7 +161,7 @@ describe("LinkList", () => {
     expect(link2).toBeInTheDocument();
     expect(link1).not.toBeInTheDocument();
     const removeFiltersButton = screen.getByRole("button", {
-      name: /remove filters/i,
+      name: /reset/i,
     });
     await user.click(removeFiltersButton);
     const resetLink1 = screen.getByText("Example 1");

@@ -60,7 +60,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col p-4 pb-0 bg-primary text-white h-[700px] w-[450px] overflow-y-auto">
+    <div className="flex flex-col p-4 pb-0 bg-primary text-white h-[600px] w-[400px] overflow-y-auto">
       <h1 className="text-xl text-center mb-2">Link Vault</h1>
       <SubmitForm handleSubmit={handleSubmit} formRef={formRef} />
       <LinkList dbInstance={db}/>

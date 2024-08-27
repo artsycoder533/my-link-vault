@@ -21,9 +21,9 @@ const sampleLinks = [
   },
 ];
 
-const renderWithMockDb = async (links = sampleLinks) => {
+const renderWithMockDb = async (links = sampleLinks, onFetchLinksReady = vi.fn()) => {
   await mockDb.links.bulkAdd(links);
-  render(<LinkList dbInstance={mockDb} />);
+  render(<LinkList dbInstance={mockDb} onFetchLinksReady={onFetchLinksReady}/>);
 };
 
 describe("LinkList", () => {

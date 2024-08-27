@@ -16,7 +16,7 @@ const FilterForm = ({ tags, categories, onChange, onReset }:FilterFormProps) => 
         id="tags"
         onChange={onChange}
         defaultValue={""}
-        className="p-1 border text-black text-sm"
+        className="p-1 border text-black text-sm w-full"
       >
         <option value="" disabled hidden>
           Select Tag

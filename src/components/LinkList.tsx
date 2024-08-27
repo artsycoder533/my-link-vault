@@ -7,31 +7,42 @@ import Dexie from "dexie";
 
 interface LinkListProps {
   dbInstance: Dexie & { links: Dexie.Table<Link, number> };
+  onFetchLinksReady: (fetchLinks: () => Promise<void>) => void;
 }
 
-const LinkList = ({dbInstance}: LinkListProps) => {
+const LinkList = ({ dbInstance, onFetchLinksReady }: LinkListProps) => {
   const [selectedTag, setSelectedTag] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [filteredList, setFilteredList] = useState<Link[]>([]);
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const [links, setLinks] = useState<Link[]>([]);
-  
-  const tags = [...new Set(links?.flatMap((link) => link.tag))];
-  const categories = ["website", "tool", "blog", "youtube", "course", "documentation", ];
 
-  const fetchLinks = useCallback(async () => {
+  const tags = [...new Set(links?.flatMap((link) => link.tag))];
+  const categories = [
+    "website",
+    "tool",
+    "blog",
+    "youtube",
+    "course",
+    "documentation",
+  ];
+
+  const fetchLinks = useCallback(async (): Promise<void> => {
     try {
       const fetchedLinks = await dbInstance.links.toArray();
-      setLinks(fetchedLinks);
+      const sortedLinks = fetchedLinks.sort(
+        (a, b) => (b.id as number) - (a.id as number)
+      );
+      setLinks(sortedLinks);
     } catch (error) {
       console.error("Error fetching links:", error);
-      return [];
     }
-  }, [dbInstance]);  // 
+  }, [dbInstance]);
 
   useEffect(() => {
     fetchLinks();
-  }, [dbInstance, fetchLinks]);
+    onFetchLinksReady(fetchLinks);
+  }, [fetchLinks, onFetchLinksReady]);
 
   useEffect(() => {
     let filteredLinks = links;
@@ -105,11 +116,13 @@ const LinkList = ({dbInstance}: LinkListProps) => {
     }
   }
 
-
   return (
     <div className="mt-4 flex flex-col flex-1">
       <div className="flex gap-3">
-        <button onClick={() => setShowFilters(!showFilters)} className="bg-secondary px-4 py-1">
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className="bg-secondary px-4 py-1"
+        >
           {showFilters ? "Hide Filters -" : "Show Filters +"}
         </button>
       </div>

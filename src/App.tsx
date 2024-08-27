@@ -13,6 +13,7 @@ type Link = {
 
 function App() {
   const formRef = useRef<HTMLFormElement>(null);
+  const fetchLinksRef = useRef<() => Promise<void>>();
 
   const getUrlAndTitle = async () => {
     const [tab] = await chrome.tabs.query({
@@ -26,7 +27,7 @@ function App() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = await getUrlAndTitle();
-    // const url = "http://www.example.com";
+    // const url = "http://www.example.com7";
     const linkData = {
       url: data.url,
       // url: url,
@@ -53,7 +54,9 @@ function App() {
         tag: linkData.tag,
         category: linkData.category,
       });
+
       formRef.current?.reset();
+      fetchLinksRef.current?.();
     } catch (error) {
       console.error(error);
     }
@@ -63,7 +66,7 @@ function App() {
     <div className="flex flex-col p-4 pb-0 bg-primary text-white h-[600px] w-[400px] overflow-y-auto">
       <h1 className="text-xl text-center mb-2">Link Vault</h1>
       <SubmitForm handleSubmit={handleSubmit} formRef={formRef} />
-      <LinkList dbInstance={db}/>
+      <LinkList dbInstance={db} onFetchLinksReady={(fetchLinks) => (fetchLinksRef.current = fetchLinks)} />
       <Footer />
     </div>
   );
